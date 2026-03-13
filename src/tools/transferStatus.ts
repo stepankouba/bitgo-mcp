@@ -19,13 +19,18 @@ interface TransfersResponse {
 }
 
 function formatTransfer(t: Transfer, walletName: string) {
+  const value: number = Math.abs(t.value) / SATOSHI;
+  const feeValue: number | undefined = t.feeString != null ? parseInt(t.feeString, 10) / SATOSHI : undefined;
+  const netValue: number | undefined = feeValue ? value - feeValue : undefined; 
+
   return {
     transferId: t.id,
     txHash: t.txid,
     wallet: walletName,
     direction: t.value >= 0 ? 'receive' : 'send',
-    amount: Math.abs(t.value) / SATOSHI,
-    fee: t.feeString != null ? parseInt(t.feeString, 10) / SATOSHI : undefined,
+    amount: value,
+    fee: feeValue,
+    netAmount: netValue,
     state: t.state,
     confirmations: t.confirmations,
     blockHeight: t.height,
