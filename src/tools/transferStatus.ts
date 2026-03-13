@@ -1,42 +1,9 @@
 import { bitgoGet } from '../bitgo';
 import { getConfiguredWallets, getWalletId } from '../wallets';
-
-const SATOSHI = 1e8;
-
-interface Transfer {
-  id: string;
-  txid: string;
-  value: number;
-  feeString?: string;
-  state: string;
-  confirmations: number;
-  height?: number;
-  date: string;
-}
+import { Transfer, formatTransfer } from './formatTransfer';
 
 interface TransfersResponse {
   transfers: Transfer[];
-}
-
-function formatTransfer(t: Transfer, walletName: string) {
-  const value: number = Math.abs(t.value) / SATOSHI;
-  const feeValue: number | undefined = t.feeString != null ? parseInt(t.feeString, 10) / SATOSHI : undefined;
-  const netValue: number | undefined = feeValue ? value - feeValue : undefined; 
-
-  return {
-    transferId: t.id,
-    txHash: t.txid,
-    wallet: walletName,
-    direction: t.value >= 0 ? 'receive' : 'send',
-    amount: value,
-    fee: feeValue,
-    netAmount: netValue,
-    state: t.state,
-    confirmations: t.confirmations,
-    blockHeight: t.height,
-    date: t.date,
-    unit: 'BTC',
-  };
 }
 
 export async function getTransferStatus(params: {
