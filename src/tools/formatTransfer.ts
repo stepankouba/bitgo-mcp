@@ -1,5 +1,12 @@
 const SATOSHI = 1e8;
 
+export interface TransferOutput {
+  address: string;
+  valueString: string;
+  wallet?: string;
+  chain?: number;
+}
+
 export interface Transfer {
   id: string;
   txid: string;
@@ -9,6 +16,7 @@ export interface Transfer {
   confirmations: number;
   height?: number;
   date: string;
+  outputs?: TransferOutput[];
 }
 
 export function formatTransfer(t: Transfer, walletName: string) {
@@ -29,5 +37,9 @@ export function formatTransfer(t: Transfer, walletName: string) {
     blockHeight: t.height,
     date: t.date,
     unit: 'BTC',
+    destinations: (t.outputs ?? []).map((o) => ({
+      address: o.address,
+      amount: parseInt(o.valueString, 10) / SATOSHI,
+    })),
   };
 }
