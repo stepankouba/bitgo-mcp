@@ -1,4 +1,7 @@
-const WALLET_NAMES = ['LW0', 'LW1', 'LIW1', 'LCW1', 'LCEW1', 'LCW2', 'LCW3_1'] as const;
+const WALLET_NAMES = [
+  'LW0', 'LW1', 'LIW1', 'LCW1', 'LCEW1', 'LCW2', 'LCW3_1',
+  'LW0_V1', 'LW1_V1', 'LIW1_V1', 'LCW1_V1', 'LCEW1_V1',
+] as const;
 
 export function getWalletId(name: string): string {
   const key = name.toUpperCase();

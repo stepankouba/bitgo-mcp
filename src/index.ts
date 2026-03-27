@@ -26,15 +26,17 @@ function createServer(): Server {
       {
         name: 'get_wallet_balances',
         description:
-          'Get BTC confirmed and spendable balances for Littlebit custody wallets ' +
-          '(LW0, LW1, LIW1, LCW1, LCEW1, LCW2, LCW3_1). Omit wallet to get all configured wallets.',
+          'Get BTC confirmed and spendable balances for Littlebit custody wallets. ' +
+          'Current wallets: LW0, LW1, LIW1, LCW1, LCEW1, LCW2, LCW3_1. ' +
+          'Wallets with _V1 suffix (e.g. LW0_V1) are previous-generation wallets retained for historical lookups. ' +
+          'Omit wallet to get all configured wallets.',
         inputSchema: {
           type: 'object',
           properties: {
             wallet: {
               type: 'string',
               description:
-                'Logical wallet name, e.g. "LW0", "LCW1". Omit to fetch all wallets.',
+                'Logical wallet name, e.g. "LW0", "LCW1", or "LW0_V1" for previous-generation. Omit to fetch all wallets.',
             },
           },
         },
@@ -42,7 +44,7 @@ function createServer(): Server {
       {
         name: 'get_pending_approvals',
         description:
-          'List BTC transactions awaiting multi-sig or policy approval across custody wallets.',
+          'List BTC transactions awaiting multi-sig or policy approval across custody wallets (current and _V1 previous-generation).',
         inputSchema: {
           type: 'object',
           properties: {
@@ -57,7 +59,7 @@ function createServer(): Server {
       {
         name: 'get_transfer_status',
         description:
-          'Get the current status of a specific BTC transfer by its BitGo transfer ID or on-chain tx hash.',
+          'Get the current status of a specific BTC transfer by its BitGo transfer ID or on-chain tx hash. Searches both current and _V1 previous-generation wallets.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -80,7 +82,7 @@ function createServer(): Server {
       {
         name: 'list_transfers',
         description:
-          'List recent BTC transfer history for one or all custody wallets, with optional filters.',
+          'List recent BTC transfer history for one or all custody wallets (current and _V1 previous-generation), with optional filters.',
         inputSchema: {
           type: 'object',
           properties: {

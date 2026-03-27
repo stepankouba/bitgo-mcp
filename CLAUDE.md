@@ -36,6 +36,18 @@ All wallets are BTC. Wallet IDs are stored in environment variables mapped to th
 | `LCW2`       | `WALLET_LCW2`        | Warm wallet representation (currently unused)                  |
 | `LCW3_1`     | `WALLET_LCW3_1`      | Cold wallet representation (currently unused)                  |
 
+### Previous-Generation Wallets (_V1)
+
+After wallet migration, old wallets are retained for historical lookups using the `_V1` suffix:
+
+| Logical Name | Env Var              | Purpose                                           |
+|--------------|----------------------|---------------------------------------------------|
+| `LW0_V1`     | `WALLET_LW0_V1`      | Previous LW0 wallet (pre-migration)               |
+| `LW1_V1`     | `WALLET_LW1_V1`      | Previous LW1 wallet (pre-migration)               |
+| `LIW1_V1`    | `WALLET_LIW1_V1`     | Previous LIW1 wallet (pre-migration)              |
+| `LCW1_V1`    | `WALLET_LCW1_V1`     | Previous LCW1 wallet (pre-migration)              |
+| `LCEW1_V1`   | `WALLET_LCEW1_V1`    | Previous LCEW1 wallet (pre-migration)             |
+
 ## Environment Variables
 
 ```
@@ -48,6 +60,11 @@ WALLET_LCW1=          # BitGo wallet ID for LCW1
 WALLET_LCEW1=         # BitGo wallet ID for LCEW1
 WALLET_LCW2=          # BitGo wallet ID for LCW2 (optional)
 WALLET_LCW3_1=        # BitGo wallet ID for LCW3_1 (optional)
+WALLET_LW0_V1=        # Previous-generation LW0 (optional, for history)
+WALLET_LW1_V1=        # Previous-generation LW1 (optional, for history)
+WALLET_LIW1_V1=       # Previous-generation LIW1 (optional, for history)
+WALLET_LCW1_V1=       # Previous-generation LCW1 (optional, for history)
+WALLET_LCEW1_V1=      # Previous-generation LCEW1 (optional, for history)
 ```
 
 ## MCP Tools to Implement
